@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: shopping-cart-db
+    environment:
+      POSTGRES_USER: cart-service
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: cart-service-db
+    ports:
+      - "5432:5432" # host:container
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:4.8.1 # very lightweight phpMyAdmin-like tool
+    container_name: shopping-cart-adminer
+    restart: unless-stopped
+    ports:
+      - "4001:8080" # host:container
+
+volumes:
+  pg_data:

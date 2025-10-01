@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/e-commerce-microservice/shopping-cart-service/gen;cartpb";
+
+service ShoppingCartService {
+    rpc CreateShoppingCart(CreateShoppingCartRequest) returns (CreateShoppingCartResponse);
+}
+
+message ShoppingCart {
+    uint32 userID = 1;
+}
+
+message CreateShoppingCartRequest {
+    uint32 userId = 1;
+}
+message CreateShoppingCartResponse {
+    bool success = 1;
+    uint32 cartId = 2;
+}
