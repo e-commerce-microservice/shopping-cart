@@ -26,3 +26,11 @@ func (c *CartService) CreateShoppingCart(ctx context.Context, req *cartpb.Create
 
 	return &cartpb.CreateShoppingCartResponse{Success: true, CartId: uint32(id)}, nil
 }
+
+func (c *CartService) AddItemToCart(ctx context.Context, req *cartpb.AddItemToCartRequest) (*cartpb.AddItemToCartResponse, error) {
+	err := c.repo.AddItemToCart(ctx, uint(req.CartId), uint(req.ProductId), int(req.Quantity))
+	if err != nil {
+		return &cartpb.AddItemToCartResponse{Success: false}, err
+	}
+	return &cartpb.AddItemToCartResponse{Success: true}, nil
+}

@@ -161,6 +161,110 @@ func (x *CreateShoppingCartResponse) GetCartId() uint32 {
 	return 0
 }
 
+type AddItemToCartRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CartId        uint32                 `protobuf:"varint,1,opt,name=cartId,proto3" json:"cartId,omitempty"`
+	ProductId     uint32                 `protobuf:"varint,2,opt,name=productId,proto3" json:"productId,omitempty"`
+	Quantity      uint32                 `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddItemToCartRequest) Reset() {
+	*x = AddItemToCartRequest{}
+	mi := &file_shopping_cart_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddItemToCartRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddItemToCartRequest) ProtoMessage() {}
+
+func (x *AddItemToCartRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_shopping_cart_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddItemToCartRequest.ProtoReflect.Descriptor instead.
+func (*AddItemToCartRequest) Descriptor() ([]byte, []int) {
+	return file_shopping_cart_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *AddItemToCartRequest) GetCartId() uint32 {
+	if x != nil {
+		return x.CartId
+	}
+	return 0
+}
+
+func (x *AddItemToCartRequest) GetProductId() uint32 {
+	if x != nil {
+		return x.ProductId
+	}
+	return 0
+}
+
+func (x *AddItemToCartRequest) GetQuantity() uint32 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
+}
+
+type AddItemToCartResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddItemToCartResponse) Reset() {
+	*x = AddItemToCartResponse{}
+	mi := &file_shopping_cart_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddItemToCartResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddItemToCartResponse) ProtoMessage() {}
+
+func (x *AddItemToCartResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_shopping_cart_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddItemToCartResponse.ProtoReflect.Descriptor instead.
+func (*AddItemToCartResponse) Descriptor() ([]byte, []int) {
+	return file_shopping_cart_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AddItemToCartResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_shopping_cart_proto protoreflect.FileDescriptor
 
 const file_shopping_cart_proto_rawDesc = "" +
@@ -172,9 +276,16 @@ const file_shopping_cart_proto_rawDesc = "" +
 	"\x06userId\x18\x01 \x01(\rR\x06userId\"N\n" +
 	"\x1aCreateShoppingCartResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x16\n" +
-	"\x06cartId\x18\x02 \x01(\rR\x06cartId2d\n" +
+	"\x06cartId\x18\x02 \x01(\rR\x06cartId\"h\n" +
+	"\x14AddItemToCartRequest\x12\x16\n" +
+	"\x06cartId\x18\x01 \x01(\rR\x06cartId\x12\x1c\n" +
+	"\tproductId\x18\x02 \x01(\rR\tproductId\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\rR\bquantity\"1\n" +
+	"\x15AddItemToCartResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess2\xa4\x01\n" +
 	"\x13ShoppingCartService\x12M\n" +
-	"\x12CreateShoppingCart\x12\x1a.CreateShoppingCartRequest\x1a\x1b.CreateShoppingCartResponseBEZCgithub.com/e-commerce-microservice/shopping-cart-service/gen;cartpbb\x06proto3"
+	"\x12CreateShoppingCart\x12\x1a.CreateShoppingCartRequest\x1a\x1b.CreateShoppingCartResponse\x12>\n" +
+	"\rAddItemToCart\x12\x15.AddItemToCartRequest\x1a\x16.AddItemToCartResponseBEZCgithub.com/e-commerce-microservice/shopping-cart-service/gen;cartpbb\x06proto3"
 
 var (
 	file_shopping_cart_proto_rawDescOnce sync.Once
@@ -188,17 +299,21 @@ func file_shopping_cart_proto_rawDescGZIP() []byte {
 	return file_shopping_cart_proto_rawDescData
 }
 
-var file_shopping_cart_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_shopping_cart_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_shopping_cart_proto_goTypes = []any{
 	(*ShoppingCart)(nil),               // 0: ShoppingCart
 	(*CreateShoppingCartRequest)(nil),  // 1: CreateShoppingCartRequest
 	(*CreateShoppingCartResponse)(nil), // 2: CreateShoppingCartResponse
+	(*AddItemToCartRequest)(nil),       // 3: AddItemToCartRequest
+	(*AddItemToCartResponse)(nil),      // 4: AddItemToCartResponse
 }
 var file_shopping_cart_proto_depIdxs = []int32{
 	1, // 0: ShoppingCartService.CreateShoppingCart:input_type -> CreateShoppingCartRequest
-	2, // 1: ShoppingCartService.CreateShoppingCart:output_type -> CreateShoppingCartResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	3, // 1: ShoppingCartService.AddItemToCart:input_type -> AddItemToCartRequest
+	2, // 2: ShoppingCartService.CreateShoppingCart:output_type -> CreateShoppingCartResponse
+	4, // 3: ShoppingCartService.AddItemToCart:output_type -> AddItemToCartResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -215,7 +330,7 @@ func file_shopping_cart_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_shopping_cart_proto_rawDesc), len(file_shopping_cart_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -4,6 +4,7 @@ option go_package = "github.com/e-commerce-microservice/shopping-cart-service/ge
 
 service ShoppingCartService {
     rpc CreateShoppingCart(CreateShoppingCartRequest) returns (CreateShoppingCartResponse);
+    rpc AddItemToCart(AddItemToCartRequest) returns (AddItemToCartResponse);
 }
 
 message ShoppingCart {
@@ -16,4 +17,14 @@ message CreateShoppingCartRequest {
 message CreateShoppingCartResponse {
     bool success = 1;
     uint32 cartId = 2;
+}
+
+message AddItemToCartRequest {
+    uint32 cartId = 1;
+    uint32 productId = 2;
+    uint32 quantity = 3;
+}
+
+message AddItemToCartResponse {
+    bool success = 1;
 }

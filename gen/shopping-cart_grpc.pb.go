@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	ShoppingCartService_CreateShoppingCart_FullMethodName = "/ShoppingCartService/CreateShoppingCart"
+	ShoppingCartService_AddItemToCart_FullMethodName      = "/ShoppingCartService/AddItemToCart"
 )
 
 // ShoppingCartServiceClient is the client API for ShoppingCartService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ShoppingCartServiceClient interface {
 	CreateShoppingCart(ctx context.Context, in *CreateShoppingCartRequest, opts ...grpc.CallOption) (*CreateShoppingCartResponse, error)
+	AddItemToCart(ctx context.Context, in *AddItemToCartRequest, opts ...grpc.CallOption) (*AddItemToCartResponse, error)
 }
 
 type shoppingCartServiceClient struct {
@@ -47,11 +49,22 @@ func (c *shoppingCartServiceClient) CreateShoppingCart(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *shoppingCartServiceClient) AddItemToCart(ctx context.Context, in *AddItemToCartRequest, opts ...grpc.CallOption) (*AddItemToCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddItemToCartResponse)
+	err := c.cc.Invoke(ctx, ShoppingCartService_AddItemToCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ShoppingCartServiceServer is the server API for ShoppingCartService service.
 // All implementations must embed UnimplementedShoppingCartServiceServer
 // for forward compatibility.
 type ShoppingCartServiceServer interface {
 	CreateShoppingCart(context.Context, *CreateShoppingCartRequest) (*CreateShoppingCartResponse, error)
+	AddItemToCart(context.Context, *AddItemToCartRequest) (*AddItemToCartResponse, error)
 	mustEmbedUnimplementedShoppingCartServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedShoppingCartServiceServer struct{}
 
 func (UnimplementedShoppingCartServiceServer) CreateShoppingCart(context.Context, *CreateShoppingCartRequest) (*CreateShoppingCartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateShoppingCart not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) AddItemToCart(context.Context, *AddItemToCartRequest) (*AddItemToCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddItemToCart not implemented")
 }
 func (UnimplementedShoppingCartServiceServer) mustEmbedUnimplementedShoppingCartServiceServer() {}
 func (UnimplementedShoppingCartServiceServer) testEmbeddedByValue()                             {}
@@ -104,6 +120,24 @@ func _ShoppingCartService_CreateShoppingCart_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ShoppingCartService_AddItemToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddItemToCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).AddItemToCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_AddItemToCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).AddItemToCart(ctx, req.(*AddItemToCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ShoppingCartService_ServiceDesc is the grpc.ServiceDesc for ShoppingCartService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var ShoppingCartService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateShoppingCart",
 			Handler:    _ShoppingCartService_CreateShoppingCart_Handler,
+		},
+		{
+			MethodName: "AddItemToCart",
+			Handler:    _ShoppingCartService_AddItemToCart_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
